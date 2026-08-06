@@ -126,12 +126,13 @@ class NetworkService: ApiCallable, NetworkServiceType {
     func refreshIpAddressesManuallyAsync() async {
         guard !Task.isCancelled
         else { return }
-        
+
         let builder = NetworkStateUpdateBuilder()
         let hasInternetAccess = await checkIfInternetConnectionAsync()
-        
+        let prevPublicIp = appState.network.publicIp
+
         builder.withHasInternetAccess(hasInternetAccess)
-        
+
         if hasInternetAccess {
             await reactivateIpApisAsync()
             await triggerRefresh(isManually: true).value
@@ -139,8 +140,9 @@ class NetworkService: ApiCallable, NetworkServiceType {
         } else {
             builder.withHasInternetAccess(false)
                 .withPublicIp(nil)
+            executeScript(prevPublicIp: prevPublicIp, publicIp: nil)
         }
-        
+
         await updateStatusAsync(update: builder.build())
     }
     
@@ -210,6 +212,7 @@ class NetworkService: ApiCallable, NetworkServiceType {
                 
                 try? await Task.sleep(nanoseconds:UInt64(self.appState.userData.intervalBetweenChecks) * Constants.secondInNanoseconds)
                 
+                let prevPublicIp = self.appState.network.publicIp
                 let publicIp = await fetchPublicIpAsync()
                 
                 await updateStatusAsync(update: builder
@@ -217,6 +220,7 @@ class NetworkService: ApiCallable, NetworkServiceType {
                     .build())
                 
                 writeLog(publicIp: publicIp)
+                executeScript(prevPublicIp: prevPublicIp, publicIp: publicIp)
             }
         }
     }
@@ -255,17 +259,19 @@ class NetworkService: ApiCallable, NetworkServiceType {
     private func performConnectionHealthCheckAsync() async {
         let builder = NetworkStateUpdateBuilder()
         let hasInternetAccess = await checkInternetAccessWithRetryAsync()
-        
+        let prevPublicIp = appState.network.publicIp
+
         builder.withHasInternetAccess(hasInternetAccess)
-        
+
         if hasInternetAccess {
             await refreshIpAddressIfNeededAsync()
             await refreshIpInfoIfNeededAsync()
         } else {
             builder.withHasInternetAccess(false)
                 .withPublicIp(nil)
+            executeScript(prevPublicIp: prevPublicIp, publicIp: nil)
         }
-        
+
         await updateStatusAsync(update: builder.build())
     }
     
@@ -464,14 +470,14 @@ class NetworkService: ApiCallable, NetworkServiceType {
     private func executeScript(prevPublicIp: IpInfo?, publicIp: IpInfo?) {
         guard appState.userData.runScript
         else { return }
-        
-        guard let ip = publicIp?.ipAddress
-        else { return }
-        
-        guard publicIp != nil && prevPublicIp != nil
-                && publicIp?.ipAddress != prevPublicIp?.ipAddress
-        else { return }
-        
-        executiveService.execute(publicIp: ip)
+
+        if let ip = publicIp?.ipAddress {
+            guard ip != prevPublicIp?.ipAddress
+            else { return }
+
+            executiveService.execute(publicIp: ip)
+        } else if prevPublicIp != nil {
+            executiveService.execute(publicIp: Constants.noInternetScriptArg)
+        }
     }
 }

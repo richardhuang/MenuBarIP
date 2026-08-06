@@ -178,6 +178,7 @@ struct Constants{
     static let obtainingIp = "Obtaining IP..."
     static let offline = "Offline"
     static let noInternet = "No internet"
+    static let noInternetScriptArg = "NO_INTERNET"
     static let checked = "Checked"
     static let unchecked = "Unchecked"
     static let clearLog = "Clear"
