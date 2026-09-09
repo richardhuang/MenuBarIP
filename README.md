@@ -11,7 +11,7 @@
   </a>
   <img alt="macOS" src="https://img.shields.io/badge/macOS-15%2B-blue?logo=apple"/>
   <img alt="Swift" src="https://img.shields.io/badge/Swift-grey?logo=swift"/>
-  <a href="https://github.com/richardhuang/MenuBarIP/releases/download/3.2/MenuBarIP-3.2.dmg">
+  <a href="https://github.com/richardhuang/MenuBarIP/releases/download/3.2.1/MenuBarIP-3.2.1.dmg">
     <img alt="Download" src="https://img.shields.io/badge/Download-DMG-green"/>
   </a>
 </p>
@@ -36,11 +36,17 @@ I was surprised to find that all similar applications in the App Store are paid 
 - Option to use custom API to retrieve public IP address and geolocation information
 
 ## Changes in this fork
-Compared to the latest upstream release ([v3.1](https://github.com/mirham/MenuBarIP/releases/tag/3.1)), the current release (3.2) of this fork adds:
+Compared to the latest upstream release ([v3.1](https://github.com/mirham/MenuBarIP/releases/tag/3.1)), this fork adds (current release: **3.2.1**):
 
-- **Fix**: custom scripts now also trigger when the public IP changes during *periodic* connection checks — previously they only ran on manual refresh
-- **Fix**: when the internet connection is lost, the configured script is triggered with `NO_INTERNET` as the argument — previously it was silently skipped
-- **Fix**: unreadable text in the log view and the menu dropdown when using light mode
+**3.2.1**
+- Fix: default internet check URLs are now reachable from mainland China networks (`baidu.com` / `jd.com` / `cn.bing.com`), so the app no longer shows a false "NO INTERNET" status there
+- Fix: default geo-info API switched from `ip-api.com` to `free.freeipapi.com` (with a matching key mapping), so the country flag/code works in mainland China
+- Bump version to 3.2.1
+
+**3.2**
+- Fix: custom scripts now also trigger when the public IP changes during *periodic* connection checks — previously they only ran on manual refresh
+- Fix: when the internet connection is lost, the configured script is triggered with `NO_INTERNET` as the argument — previously it was silently skipped
+- Fix: unreadable text in the log view and the menu dropdown when using light mode
 - Add a shared Xcode scheme (enables command-line builds with `xcodebuild -scheme MenuBarIP`) and bump the version to 3.2
 
 ## Compatibility
