@@ -70,7 +70,9 @@ struct Constants{
     static let defaultInternetCheckUrl1 = "https://www.baidu.com"
     static let defaultInternetCheckUrl2 = "https://www.jd.com"
     static let defaultInternetCheckUrl3 = "https://cn.bing.com"
-    static let defaultIpInfoApiUrl = "http://ip-api.com/json/\(publicIpMask)"
+    // Default geo-info API. ip-api.com (the previous default) is unreachable from
+    // mainland China networks, leaving the country flag/code empty there.
+    static let defaultIpInfoApiUrl = "https://free.freeipapi.com/api/json/\(publicIpMask)"
     static let defaultLogFileLimit: Int = 1000
     static let minLogFileLimit: Int = 10
     static let maxLogFileLimit: Int = 10000
@@ -394,17 +396,18 @@ struct Constants{
         mbItemKeySeparatorRightBracket
     ]
     
+    // Key mapping matching the default free.freeipapi.com response schema.
     static let defaultIpInfoApiKeyMapping = [
-        "ipAddress" : "query",
-        "zipCode" : "zip",
+        "ipAddress" : "ipAddress",
+        "zipCode" : "zipCode",
         "countryCode" : "countryCode",
-        "countryName" : "country",
+        "countryName" : "countryName",
         "regionName" : "regionName",
-        "cityName" : "city",
-        "latitude" : "lat",
-        "longitude" : "lon",
-        "asn" : "as",
-        "isp" : "isp",
+        "cityName" : "cityName",
+        "latitude" : "latitude",
+        "longitude" : "longitude",
+        "asn" : "asn",
+        "isp" : "asnOrganization",
     ]
     
     static let readableIpInfoApiKeyMapping = [
