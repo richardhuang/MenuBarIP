@@ -64,9 +64,12 @@ struct Constants{
     static let defaultCheckConnectionHealthIntervalNanoseconds: UInt64 = UInt64(defaultCheckConnectionHealthIntervalSeconds) * secondInNanoseconds
     static let defaultLightColor = "#FEFFFF"
     static let defaultDarkColor = "#000001"
-    static let defaultInternetCheckUrl1 = "https://google.com"
-    static let defaultInternetCheckUrl2 = "https://duckduckgo.com"
-    static let defaultInternetCheckUrl3 = "https://www.yahoo.com"
+    // Defaults are widely reachable in mainland China networks, where the previous
+    // defaults (google.com / duckduckgo.com / yahoo.com) are blocked and caused
+    // a permanent false "NO INTERNET" status.
+    static let defaultInternetCheckUrl1 = "https://www.baidu.com"
+    static let defaultInternetCheckUrl2 = "https://www.jd.com"
+    static let defaultInternetCheckUrl3 = "https://cn.bing.com"
     static let defaultIpInfoApiUrl = "http://ip-api.com/json/\(publicIpMask)"
     static let defaultLogFileLimit: Int = 1000
     static let minLogFileLimit: Int = 10
