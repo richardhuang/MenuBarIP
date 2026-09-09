@@ -1,18 +1,23 @@
 <p align="center">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/AppLogo.png" width="400"/>
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/AppLogo.png" width="400"/>
 </p>
 
 <p align="center" style="text-align: center">
-  <a href="https://github.com/mirham/MenuBarIP//tags" rel="nofollow">
-    <img alt="GitHub tag (latest SemVer pre-release)" src="https://img.shields.io/github/v/tag/mirham/MenuBarIP?include_prereleases&label=version"/>
+  <a href="https://github.com/richardhuang/MenuBarIP/releases" rel="nofollow">
+    <img alt="GitHub release (latest SemVer)" src="https://img.shields.io/github/v/release/richardhuang/MenuBarIP?label=version"/>
   </a>
-  <a href="https://github.com/mirham/MenuBarIP/blob/main/LICENSE">
-    <img alt="License" src="https://img.shields.io/github/license/mirham/MenuBarIP"/>
+  <a href="https://github.com/richardhuang/MenuBarIP/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/richardhuang/MenuBarIP"/>
   </a>
-  <img alt="macOS" src="https://img.shields.io/badge/macOS-blue?logo=apple"/>
+  <img alt="macOS" src="https://img.shields.io/badge/macOS-15%2B-blue?logo=apple"/>
   <img alt="Swift" src="https://img.shields.io/badge/Swift-grey?logo=swift"/>
-  <img alt="Pet project" src="https://img.shields.io/badge/Pet project-purple?logo=github"/>
+  <a href="https://github.com/richardhuang/MenuBarIP/releases/download/3.2/MenuBarIP-3.2.dmg">
+    <img alt="Download" src="https://img.shields.io/badge/Download-DMG-green"/>
+  </a>
 </p>
+
+> [!NOTE]
+> This repository is a **fork** of [MirHam MenuBarIP](https://github.com/mirham/MenuBarIP) by [mirham](https://github.com/mirham). It tracks the upstream project and adds a few fixes that are not published upstream yet. Ready-to-install DMG builds are published on the [Releases](https://github.com/richardhuang/MenuBarIP/releases) page of this fork. See [Changes in this fork](#changes-in-this-fork) for what is different from the latest upstream release.
 
 ## Introduction
 MirHam MenuBarIP is a macOS menu bar application designed to display your public and local IP addresses with various customization options.
@@ -30,50 +35,60 @@ I was surprised to find that all similar applications in the App Store are paid 
 - Ability to use shebangs for unsupported script types
 - Option to use custom API to retrieve public IP address and geolocation information
 
+## Changes in this fork
+Compared to the latest upstream release ([v3.1](https://github.com/mirham/MenuBarIP/releases/tag/3.1)), the current release (3.2) of this fork adds:
+
+- **Fix**: custom scripts now also trigger when the public IP changes during *periodic* connection checks — previously they only ran on manual refresh
+- **Fix**: when the internet connection is lost, the configured script is triggered with `NO_INTERNET` as the argument — previously it was silently skipped
+- **Fix**: unreadable text in the log view and the menu dropdown when using light mode
+- Add a shared Xcode scheme (enables command-line builds with `xcodebuild -scheme MenuBarIP`) and bump the version to 3.2
+
 ## Compatibility
 This application is compatible with macOS 15.0 and above. All versions below 2.0 are compatible with macOS 14.0. Version [2.3](https://github.com/mirham/MenuBarIP/releases/tag/2.3) is the last compatible version for macOS 14.0 and will only be upgraded by request.
 
 ## Installation
-Download the DMG installer from the [releases](https://github.com/mirham/MenuBarIP/releases), mount it, and drag and drop the application to the Applications folder. That's it! However, you will need to allow launching applications from unidentified developers to start the application, as I don't have an Apple developer license.
+Download the DMG installer from the [releases](https://github.com/richardhuang/MenuBarIP/releases) page of this fork, mount it, and drag and drop the application to the Applications folder. That's it!
+
+The app is signed with an ad-hoc signature (no Apple developer license, not notarized), so macOS will warn you on first launch. To start it anyway, **right-click** the app in Finder and choose **Open**, then confirm — you only need to do this once.
 
 ## Screenshots
 
 ### Menu bar
 <p align="left">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/MenuBarView.png">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/MenuBarView.png">
 </p>
 
 ### Available items
 <p align="left">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/AvailableItems.png">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/AvailableItems.png">
 </p>
 
 ### Color theme support
 <p align="left">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/DarkTheme.png">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/DarkTheme.png">
 </p>
 <p align="left">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/LightTheme.png">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/LightTheme.png">
 </p>
 
 ### Map
 <p align="left">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/MapView.png" width="800">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/MapView.png" width="800">
 </p>
 
 ### Log
 <p align="left">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/Log.png" width="400">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/Log.png" width="400">
 </p>
 
 ### Settings
 <p align="left">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/Settings1.png" width="600">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/Settings2.png" width="600">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/Settings3.png" width="600">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/Settings4.png" width="600">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/Settings5.png" width="600">
-  <img src="https://github.com/mirham/MenuBarIP/blob/main/Images/Settings6.png" width="600">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/Settings1.png" width="600">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/Settings2.png" width="600">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/Settings3.png" width="600">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/Settings4.png" width="600">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/Settings5.png" width="600">
+  <img src="https://github.com/richardhuang/MenuBarIP/blob/main/Images/Settings6.png" width="600">
 </p>
 
 ## Custom text customization guide
