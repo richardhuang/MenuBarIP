@@ -11,7 +11,7 @@
   </a>
   <img alt="macOS" src="https://img.shields.io/badge/macOS-15%2B-blue?logo=apple"/>
   <img alt="Swift" src="https://img.shields.io/badge/Swift-grey?logo=swift"/>
-  <a href="https://github.com/richardhuang/MenuBarIP/releases/download/3.2.1/MenuBarIP-3.2.1.dmg">
+  <a href="https://github.com/richardhuang/MenuBarIP/releases/download/3.2.2/MenuBarIP-3.2.2.dmg">
     <img alt="Download" src="https://img.shields.io/badge/Download-DMG-green"/>
   </a>
 </p>
@@ -36,7 +36,10 @@ I was surprised to find that all similar applications in the App Store are paid 
 - Option to use custom API to retrieve public IP address and geolocation information
 
 ## Changes in this fork
-Compared to the latest upstream release ([v3.1](https://github.com/mirham/MenuBarIP/releases/tag/3.1)), this fork adds (current release: **3.2.1**):
+Compared to the latest upstream release ([v3.1](https://github.com/mirham/MenuBarIP/releases/tag/3.1)), this fork adds (current release: **3.2.2**):
+
+**3.2.2**
+- Fix: the menu bar item no longer disappears when a VPN/proxy client (e.g. Clash Verge) restarts and network interfaces churn. The status label is now guarded against empty/failed renders — a zero-width label caused macOS to remove the status item while the process kept running
 
 **3.2.1**
 - Fix: default internet check URLs are now reachable from mainland China networks (`baidu.com` / `jd.com` / `cn.bing.com`), so the app no longer shows a false "NO INTERNET" status there
