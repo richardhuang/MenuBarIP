@@ -21,9 +21,17 @@ struct MenuBarStatusView : @MainActor MenuBarItemsContainerView {
             let image = MenuBarStatusRawView(
                 appState: debouncedAppState ?? appState,
                 colorScheme: colorScheme).renderAsImage()
-            Image(nsImage: image!)
-                .nonAntialiased()
-                .scaledToFit()
+            // Guard against empty/failed renders (e.g. during network
+            // interface churn): a zero-width label makes macOS remove the
+            // status item entirely, leaving the app invisible.
+            if let image = image, image.size.width > 0.5 {
+                Image(nsImage: image)
+                    .nonAntialiased()
+                    .scaledToFit()
+            } else {
+                Image(systemName: Constants.iconObtaining)
+                    .scaledToFit()
+            }
         }
         .onAppear(){
             appState.current.colorScheme = colorScheme
@@ -107,13 +115,20 @@ private struct MenuBarStatusRawView: @MainActor MenuBarItemsContainerView {
             keys: appState.userData.menuBarShownItems,
             appState: appState,
             colorScheme: colorScheme)
-        
-        return HStack(spacing: appState.userData.menuBarSpacing) {
+
+        // If every element failed to build (transient data loss, e.g. while
+        // a VPN client restarts its TUN interface), fall back to a non-empty
+        // placeholder so the status item never collapses to zero width.
+        if shownItems.isEmpty {
+            return AnyView(makeObtainingIpView())
+        }
+
+        return AnyView(HStack(spacing: appState.userData.menuBarSpacing) {
             ForEach(shownItems, id: \.id) { item in
                 Image(nsImage: item.image)
                     .nonAntialiased()
             }
-        }
+        })
     }
 }
 
